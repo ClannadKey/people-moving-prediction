@@ -1,22 +1,22 @@
 
-#from __future__ import print_function
+from __future__ import print_function
 import os
-#import cPickle as pickle
+import cPickle as pickle
 import numpy as np
 import math
-'''
+
 
 os.environ["CUDA_VISIBLE_DEVICES"]='3'
 import tensorflow as tf  #from V1707
 import setproctitle  #from V1707
 config=tf.ConfigProto()  #from V1707
 #config.gpu_options.allow_growth=True  #from V1707
-config.gpu_options.per_process_gpu_memory_fraction=0.7
+config.gpu_options.per_process_gpu_memory_fraction=0.4
 sess=tf.Session(config=config)  #from V1707
 #import keras.backend.tensorflow_backend as KTF
 #KTF._set_session(tf.Session(config=config))
 setproctitle.setproctitle('try@linziqian')  #from V1707
-'''
+
 
 os.environ["DATAPATH"]='/home/stu/linziqian'
 

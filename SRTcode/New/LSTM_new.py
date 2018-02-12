@@ -1,6 +1,6 @@
 from __future__ import print_function
 import os
-import cPickle as pickle
+#import cPickle as pickle
 import numpy as np
 import math
 
@@ -8,17 +8,16 @@ import math
 os.environ["CUDA_VISIBLE_DEVICES"]='1'
 import tensorflow as tf  #from V1707
 import setproctitle  #from V1707
-from keras import backend as K
-K.set_image_data_format('channels_first')
-
 config=tf.ConfigProto()  #from V1707
 #config.gpu_options.allow_growth=True  #from V1707
-config.gpu_options.per_process_gpu_memory_fraction=0.7
+config.gpu_options.per_process_gpu_memory_fraction=0.4
 sess=tf.Session(config=config)  #from V1707
 #import keras.backend.tensorflow_backend as KTF
 #KTF._set_session(tf.Session(config=config))
 setproctitle.setproctitle('try@linziqian')  #from V1707
 
+from keras import backend as K
+K.set_image_data_format('channels_first')
 
 os.environ["DATAPATH"]='/home/stu/linziqian'
 
@@ -90,7 +89,8 @@ cpt_conv1=Dropout(0.2)(cpt_conv1)
 cpt_conv1=Dense(units=2,activation='tanh')(cpt_conv1)
 model1=Model(inputs=input1_128,outputs=cpt_conv1)
 model1.compile(loss='mse', optimizer=Adam(lr), metrics=[metrics.rmse])
-
+from keras.utils import plot_model
+plot_model(model1, to_file='modelLSTM.png', show_shapes=True)
 
 print("loading data...")
 X_train, Y_train, X_test, Y_test, mmn, external_dim, timestamp_train, timestamp_test = BikeNYC.load_data(
@@ -158,6 +158,9 @@ cpt_conv2=LSTM(units=2,activation='tanh', recurrent_activation='hard_sigmoid',re
 output2=Dense(units=2)(cpt_conv2)
 model2=Model(inputs=input2_128,outputs=output2)
 model2.compile(loss='mse', optimizer=Adam(lr), metrics=[metrics.rmse])
+
+from keras.utils import plot_model
+plot_model(model2, to_file='modelLSTM.png', show_shapes=True)
 
 Xtrain=XX_train[:,:,X,Y].reshape([-1,1,FF2])
 XTRAIN=Xtrain[:-9]
