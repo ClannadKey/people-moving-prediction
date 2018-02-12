@@ -1,0 +1,2 @@
+单时间单个过LSTM
+整体过LSTM http://www.seas.upenn.edu/~gberta/uploads/3/1/4/8/31486883/1950.pdf
